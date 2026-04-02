@@ -96,7 +96,7 @@ async def get_user(request: Request):
             }
         )
         if user_res.status_code != 200:
-            raise HTTPException(status_code=user_res.status_code, detail=f"GitHub API error: {user_res.text}")
+            raise HTTPException(status_code=user_res.status_code, detail={"GitHub API error": user_res.json()})
         return user_res.json()
 
 @router.get("/repos")
@@ -111,7 +111,7 @@ async def list_repos(request: Request):
             }
         )
         if res.status_code != 200:
-            raise HTTPException(status_code=res.status_code, detail=f"GitHub API error: {res.text}")
+            raise HTTPException(status_code=res.status_code, detail={"GitHub API error": res.json()})
         return res.json()
 
 @router.get("/repos/{owner}/{repo}/issues")
@@ -126,7 +126,7 @@ async def list_issues(request: Request, owner: str, repo: str):
             }
         )
         if res.status_code != 200:
-            raise HTTPException(status_code=res.status_code, detail=f"GitHub API error: {res.text}")
+            raise HTTPException(status_code=res.status_code, detail={"GitHub API error": res.json()})
         return res.json()
 
 @router.post("/repos/{owner}/{repo}/issues")
@@ -142,7 +142,7 @@ async def create_issue(request: Request, owner: str, repo: str, issue_data: Issu
             json={"title": issue_data.title, "body": issue_data.body}
         )
         if res.status_code != 201:
-            raise HTTPException(status_code=res.status_code, detail=f"GitHub API error: {res.text}")
+            raise HTTPException(status_code=res.status_code, detail={"GitHub API error": res.json()})
         return res.json()
 
 @router.get("/repos/{owner}/{repo}/commits")
@@ -157,7 +157,7 @@ async def list_commits(request: Request, owner: str, repo: str):
             }
         )
         if commits_res.status_code != 200:
-            raise HTTPException(status_code=commits_res.status_code, detail=f"GitHub API error: {commits_res.text}")
+            raise HTTPException(status_code=commits_res.status_code, detail={"GitHub API error": commits_res.json()})
         return commits_res.json()
 
 @router.post("/repos/{owner}/{repo}/pulls")
@@ -178,7 +178,7 @@ async def create_pull_request(request: Request, owner: str, repo: str, pr_data: 
             }
         )
         if pr_res.status_code != 201:
-            raise HTTPException(status_code=pr_res.status_code, detail=f"GitHub API error: {pr_res.text}")
+            raise HTTPException(status_code=pr_res.status_code, detail={"GitHub API error": pr_res.json()})
         return pr_res.json()
 
 @router.get("/logout")
