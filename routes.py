@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import RedirectResponse
-from utils import get_access_token, get_session, end_session, SESSION_LIFE
 import httpx
 import os
 from dotenv import load_dotenv
 
+from utils import get_access_token, get_session, end_session, SESSION_LIFE
 from models.models import PRCreate, IssueCreate
 
 load_dotenv()

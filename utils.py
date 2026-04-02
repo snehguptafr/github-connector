@@ -2,7 +2,7 @@ from fastapi import HTTPException, Request
 import secrets
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
-from typing import Dict, Optional
+from typing import Optional
 import os
 from dotenv import load_dotenv
 
@@ -76,5 +76,4 @@ def end_session(session_cookie: Optional[str]) -> None:
         if session_id:
             ACTIVE_SESSIONS.pop(session_id, None)
     except JWTError:
-        # If cookie is malformed/expired, treat as already revoked.
         pass
